@@ -132,9 +132,8 @@ public class billing1 extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
 
-        jLabel27.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Downloads\\all page background image.png")); // NOI18N
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -234,10 +233,10 @@ public class billing1 extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("NumberPhone");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 387, -1, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, 30));
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 392, 200, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 200, -1));
 
         jTextField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 359, 201, -1));
@@ -296,7 +295,7 @@ public class billing1 extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 220, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 220, 100, -1));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel17.setText("Add");
@@ -527,8 +526,10 @@ public class billing1 extends javax.swing.JFrame {
         String status = jComboBox2.getSelectedItem().toString();
         if(status.equals("Confirmed")){
             jButton5.setEnabled(true);
+            jButton2.setEnabled(false);
         }else{
             jButton5.setEnabled(false);
+            jButton2.setEnabled(true);
         }
         try {
             Connection con = ConnectionProvider.getConnection();
@@ -688,6 +689,7 @@ public class billing1 extends javax.swing.JFrame {
                     jTextField8.setVisible(true);
                     traTien = 1;
                     JOptionPane.showMessageDialog(null, "Điền số tiền khách trả");
+                    jComboBox2.setEnabled(false);
                 }
             }
         }
@@ -701,13 +703,13 @@ public class billing1 extends javax.swing.JFrame {
             String Name = jTextField3.getText();
             String NumberPhone = jTextField2.getText();
             String Paid = jTextField8.getText();
+            if(jTextField8.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Vui lòng điền số tiền khách trả");
+            }else{
             long tienTra = Long.parseLong(Paid);
             long giaTien = Long.parseLong(Price);
-            long tienThua = tienTra-giaTien;
-            String Retun = String.valueOf(tienThua);
-            if(Paid.equals("")){
-                JOptionPane.showMessageDialog(null, "Vui lòng điền số tiền khách đưa");
-            }else if(tienTra<giaTien){
+            String Retun = String.valueOf(tienTra-giaTien);
+            if(tienTra<giaTien){
                 JOptionPane.showMessageDialog(null, "Tiền khách trả không đủ");
             }
             else{
@@ -720,9 +722,11 @@ public class billing1 extends javax.swing.JFrame {
                                 setVisible(false);
                                 new billing1().setVisible(true);
                             } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, e);
                             }
                 }
             }
+        }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -804,6 +808,7 @@ public class billing1 extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
         new revenue().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 

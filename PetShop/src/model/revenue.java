@@ -15,6 +15,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Admin
  */
+// 123456
 public class revenue extends javax.swing.JFrame {
 
     /**
@@ -23,6 +24,19 @@ public class revenue extends javax.swing.JFrame {
     public revenue() {
         initComponents();
         jTextField1.setEditable(false);
+    }
+    public String chuanHoa(String s){
+        String temp = "";
+        int dem = 0;
+        for(int i = s.length()-1;i>=0;i--){
+            temp = s.charAt(i) + temp;
+            dem++;
+            if(dem==3){
+                temp = "." + temp;
+                dem = 0;
+            }
+        }
+        return temp;
     }
 
     /**
@@ -42,7 +56,7 @@ public class revenue extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -50,52 +64,51 @@ public class revenue extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel30 = new javax.swing.JLabel();
-
-        jLabel28.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Downloads\\all page background image.png")); // NOI18N
-
-        jLabel29.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Downloads\\all page background image.png")); // NOI18N
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Revenue");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 12, -1, 42));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, 42));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Cash-icon.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 0, -1, 54));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, 54));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Day");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 78, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("Month");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 78, -1, -1));
+        jLabel4.setText("Species");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Year");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 77, 88, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 77, 87, -1));
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Dog", "Cat" }));
+        getContentPane().add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 87, -1));
 
         jComboBox3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "2022", "2021", "2020" }));
-        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 90, -1));
+        getContentPane().add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("PET MANAGEMENT SYSTEM");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 272, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 272, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Zoom-icon (1).png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,12 +116,12 @@ public class revenue extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 80, -1));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 371, 10));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 80, -1));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 470, 10));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setText("Total");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/refresh-icon (1).png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -116,10 +129,26 @@ public class revenue extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 70, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 80, -1));
 
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/all page background image.png"))); // NOI18N
-        getContentPane().add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 77, 87, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setText("Month");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 78, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/back.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/all page background image.png"))); // NOI18N
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,6 +158,7 @@ public class revenue extends javax.swing.JFrame {
         String day = jComboBox1.getSelectedItem().toString();
         String month = jComboBox2.getSelectedItem().toString();
         String year = jComboBox3.getSelectedItem().toString();
+        String species = jComboBox4.getSelectedItem().toString();
         if(!day.equals("None")&&month.equals("None")&&year.equals("None")){
             JOptionPane.showMessageDialog(null, "Vui lòng chọn tháng và năm!");
         }else if (day.equals("None")&&month.equals("None")&&year.equals("None")){
@@ -141,11 +171,65 @@ public class revenue extends javax.swing.JFrame {
         }else{
             if (day.equals("None")&&month.equals("None")&&!year.equals("None")){
                 try {
+                    int ok = 0;
+                    Connection con = ConnectionProvider.getConnection();
+                    Statement st = con.createStatement();
+                    ResultSet rs;
+                    if(species.equals("All")){
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"'");
+                    }else{
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"' and Species = '"+species+"' ");
+                    }
+                    if(rs.next()){
+                        String temp = rs.getString("tong");
+                        if(temp!=null){
+                            jTextField1.setText(chuanHoa(temp));
+                        }else{
+                            jTextField1.setText("0");
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Tìm thành công");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            }else if(day.equals("None")&&!month.equals("None")&&!year.equals("None")){
+                try {
                 Connection con = ConnectionProvider.getConnection();
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/2022'");
+                ResultSet rs;
+                    if(species.equals("All")){
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/"+month+"/"+year+"'");
+                    }else{
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/"+month+"/"+year+"' and Species = '"+species+"' ");
+                    }
                     if(rs.next()){
-                        jTextField1.setText(rs.getString("tong"));
+                        String temp = rs.getString("tong");
+                        if(temp!=null){
+                            jTextField1.setText(chuanHoa(temp));
+                        }else{
+                            jTextField1.setText("0");
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Tìm thành công");
+            } catch (Exception e) {
+            }
+            }else if(!day.equals("None")&&!month.equals("None")&&!year.equals("None")){
+                try {
+                Connection con = ConnectionProvider.getConnection();
+                Statement st = con.createStatement();
+                ResultSet rs;
+                    if(species.equals("All")){
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '"+day+"/"+month+"/"+year+"'");
+                    }else{
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '"+day+"/"+month+"/"+year+"' and Species = '"+species+"' ");
+                    }
+                    if(rs.next()){
+                        String temp = rs.getString("tong");
+                        if(temp!=null){
+                            jTextField1.setText(chuanHoa(temp));
+                        }else{
+                            jTextField1.setText("0");
+                        }
                     }
                     JOptionPane.showMessageDialog(null, "Tìm thành công");
             } catch (Exception e) {
@@ -158,9 +242,16 @@ public class revenue extends javax.swing.JFrame {
         // TODO add your handling code here:
         jComboBox1.setSelectedIndex(0);
         jComboBox2.setSelectedIndex(0);
+        jComboBox4.setSelectedIndex(0);
         jComboBox3.setSelectedIndex(0);
         jTextField1.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new billing1().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,19 +291,22 @@ public class revenue extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
