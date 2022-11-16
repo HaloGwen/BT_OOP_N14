@@ -28,12 +28,15 @@ public class revenue extends javax.swing.JFrame {
     public String chuanHoa(String s){
         String temp = "";
         int dem = 0;
+        s = "a"+s;
         for(int i = s.length()-1;i>=0;i--){
-            temp = s.charAt(i) + temp;
-            dem++;
-            if(dem==3){
-                temp = "." + temp;
+            if(dem==3&&s.charAt(i)!='a'){
+                temp = "."+temp;
                 dem = 0;
+            }
+                dem++;
+            if(s.charAt(i)!='a'){
+                temp = s.charAt(i)+temp;
             }
         }
         return temp;
@@ -176,9 +179,9 @@ public class revenue extends javax.swing.JFrame {
                     Statement st = con.createStatement();
                     ResultSet rs;
                     if(species.equals("All")){
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"'");
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"'and status = 0");
                     }else{
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"' and Species = '"+species+"' ");
+                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"' and Species = '"+species+"'and status = 0 ");
                     }
                     if(rs.next()){
                         String temp = rs.getString("tong");

@@ -108,7 +108,7 @@ public class newBuyer1 extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
         jLabel2.setText("Customer");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 320, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 320, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -378,7 +378,7 @@ public class newBuyer1 extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-                TableColumnModel tcm = jTable1.getColumnModel();
+        TableColumnModel tcm = jTable1.getColumnModel();
         tcm.getColumn(0).setPreferredWidth(70);
         tcm.getColumn(1).setPreferredWidth(30);
         tcm.getColumn(2).setPreferredWidth(200);

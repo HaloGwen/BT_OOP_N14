@@ -24,6 +24,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -65,7 +66,24 @@ public class billing1 extends javax.swing.JFrame {
         jTextField6.setEditable(false);
         jTextField7.setEditable(false);
         jLabel25.setVisible(false);
+        jID_Order.setVisible(false);
         jTextField8.setVisible(false);
+    }
+    public String chuanHoa(String s){
+        String temp = "";
+        int dem = 0;
+        s = "a"+s;
+        for(int i = s.length()-1;i>=0;i--){
+            if(dem==3&&s.charAt(i)!='a'){
+                temp = "."+temp;
+                dem = 0;
+            }
+                dem++;
+            if(s.charAt(i)!='a'){
+                temp = s.charAt(i)+temp;
+            }
+        }
+        return temp;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,6 +148,9 @@ public class billing1 extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
+        jID_Order = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,13 +210,13 @@ public class billing1 extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Bill", "pId", "pName", "Species", "Price", "Name", "NumberPhone", "Date"
+                "ID_Bill", "ID_Order", "pId", "pName", "Species", "Price", "Name", "NumberPhone", "Date"
             }
         ));
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,7 +254,7 @@ public class billing1 extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("NumberPhone");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, 40));
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 200, -1));
@@ -247,7 +268,7 @@ public class billing1 extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("pName");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 385, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Price");
@@ -397,7 +418,7 @@ public class billing1 extends javax.swing.JFrame {
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Paid");
-        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 445, -1, -1));
+        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, -1, 40));
 
         jTextField8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 443, 200, -1));
@@ -413,6 +434,19 @@ public class billing1 extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel26.setText("Print");
         getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 600, -1, -1));
+        getContentPane().add(jID_Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 90, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel29.setText("Add Order");
+        getContentPane().add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, -1, -1));
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/add-icon.png"))); // NOI18N
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/all page background image.png"))); // NOI18N
         getContentPane().add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
@@ -441,7 +475,7 @@ public class billing1 extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select ID_Bill,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1");
+            ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1 order by ID_Bill ASC");
             jTable3.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -535,11 +569,11 @@ public class billing1 extends javax.swing.JFrame {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
             if (status.equals("Unconfirmed")){
-                ResultSet rs = st.executeQuery("select ID_Bill,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1");
+                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1 order by ID_Bill ASC");
                 jTable3.setModel(DbUtils.resultSetToTableModel(rs));
                 jButton3.setEnabled(true);
             }else if (status.equals("Confirmed")){
-                ResultSet rs = st.executeQuery("select ID_Bill,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 0");
+                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 0 order by ID_Bill ASC");
                 jTable3.setModel(DbUtils.resultSetToTableModel(rs));
                 jButton3.setEnabled(false);
                 jButton2.setEnabled(false);
@@ -555,13 +589,13 @@ public class billing1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(them == 0){
             int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn tạo đơn hàng?","Select",JOptionPane.YES_NO_OPTION);
-            if(thongbao ==0 ){
+            if(thongbao == 0 ){
                 bang1 = bang2 = 1;
                 bang3 = 0;
                 try {
                         Connection con = ConnectionProvider.getConnection();
                         Statement st = con.createStatement();
-                        ResultSet rs = st.executeQuery("select max(ID_Bill) from Bill");
+                        ResultSet rs = st.executeQuery("select max(ID_Bill) from DoneBill");
                         if(rs.next()){  
                             int id = rs.getInt(1);
                             id = id+1;
@@ -569,7 +603,7 @@ public class billing1 extends javax.swing.JFrame {
                             jTextField1.setText(str);
                         }else{
                             jTextField1.setText("1");
-                        }
+                        }                    
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
@@ -583,6 +617,8 @@ public class billing1 extends javax.swing.JFrame {
                 jButton3.setEnabled(false);
                 jButton4.setEnabled(false);
                 jButton5.setEnabled(false);
+                jButton9.setVisible(false);
+                jLabel29.setVisible(false);
                 them = 1;
             }
         }else{
@@ -595,21 +631,40 @@ public class billing1 extends javax.swing.JFrame {
                 String Species = jTextField7.getText();
                 String status = "1";
                 String dob = jLabel15.getText();
-                int paid = 0;
-                int Retun = 0;
                 if(Name.equals("") ||NumberPhone.equals("") ||pId.equals("") ||pName.equals("") ||Price.equals("") ||Species.equals("")){
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn đủ thông tin");
                 }else
                     try {
-                        int thongbao1 = JOptionPane.showConfirmDialog(null, "Bạn muốn tạo hoá đơn này?","Select",JOptionPane.YES_NO_OPTION);
+                        int thongbao1 = JOptionPane.showConfirmDialog(null, "Bạn muốn thêm thú cưng đã chọn?","Select",JOptionPane.YES_NO_OPTION);
                         if (thongbao1 == 0){
                             Connection con = ConnectionProvider.getConnection();
                             Statement st = con.createStatement();
-                            st.executeUpdate("insert into Bill values('"+ID_Bill+"','"+pId+"',N'"+pName+"','"+Species+"','"+Price+"',N'"+Name+"','"+NumberPhone+"','"+dob+"','"+status+"','"+paid+"','"+Retun+"')");
+                            ResultSet rs = st.executeQuery("select ID_Bill as id from DoneBill where ID_Bill = '"+ID_Bill+"'");
+                            if(!rs.next()){
+                                     st.executeUpdate("insert into DoneBill values('0','0','0','"+ID_Bill+"')");
+                            }
+                            rs = st.executeQuery("select max(ID_Order) from Bill");
+                            if(rs.next()){
+                                int ID_Order = rs.getInt(1);
+                                ID_Order = ID_Order+1;
+                                String str = String.valueOf(ID_Order);
+                                jID_Order.setText(str);
+                            }else{
+                                jID_Order.setText("1");
+                            }
+                            st.executeUpdate("insert into Bill values('"+jID_Order.getText()+"','"+ID_Bill+"','"+pId+"',N'"+pName+"','"+Species+"','"+Price+"',N'"+Name+"','"+NumberPhone+"','"+dob+"','"+status+"')");
                             st.executeUpdate("update Pet set Status = 0 where pId = '"+pId+"' ");
                             JOptionPane.showMessageDialog(null, "Thêm thành công");
-                            setVisible(false);
-                            new billing1().setVisible(true);
+                            DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+                            DefaultTableModel model1 = (DefaultTableModel)jTable2.getModel();
+                            model.addRow(new Object[]{jTextField1.getText(),jID_Order.getText(),jTextField4.getText(),jTextField5.getText(),jTextField7.getText(),jTextField6.getText(),jTextField3.getText(),jTextField2.getText(),jLabel15.getText()});
+                            bang1 = 0;
+                            int removeIndex = jTable2.getSelectedRow();
+                            model1.removeRow(removeIndex);
+                            jTextField4.setText("");
+                            jTextField5.setText("");
+                            jTextField6.setText("");
+                            jTextField7.setText("");
                             }
                     }catch (Exception e) {
                         JOptionPane.showMessageDialog(null,e);
@@ -624,17 +679,17 @@ public class billing1 extends javax.swing.JFrame {
             if(row >= 0){
                 jTextField1.setText(jTable3.getValueAt(row, 0).toString());
                 jTextField1.setForeground(new Color(255,0,0));
-                jTextField3.setText(jTable3.getValueAt(row, 5).toString());
+                jTextField3.setText(jTable3.getValueAt(row, 6).toString());
                 jTextField3.setForeground(new Color(0,0,0));
-                jTextField2.setText(jTable3.getValueAt(row, 6).toString());
+                jTextField2.setText(jTable3.getValueAt(row, 7).toString());
                 jTextField2.setForeground(new Color(255,0,0));
-                jTextField4.setText(jTable3.getValueAt(row, 1).toString());
-                jTextField4.setForeground(new Color(0,0,0));
-                jTextField5.setText(jTable3.getValueAt(row, 2).toString());
-                jTextField5.setForeground(new Color(255,0,0));
-                jTextField6.setText(jTable3.getValueAt(row, 4).toString());
+                jTextField4.setText(jTable3.getValueAt(row, 2).toString());
+                jTextField4.setForeground(new Color(255,0,0));
+                jTextField5.setText(jTable3.getValueAt(row, 3).toString());
+                jTextField5.setForeground(new Color(0,0,0));
+                jTextField6.setText(jTable3.getValueAt(row, 5).toString());
                 jTextField6.setForeground(new Color(0,0,0));
-                jTextField7.setText(jTable3.getValueAt(row, 3).toString());
+                jTextField7.setText(jTable3.getValueAt(row, 4).toString());
                 jTextField7.setForeground(new Color(0,0,0));
             }
         }
@@ -642,46 +697,54 @@ public class billing1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-            if(jTextField1.getText().equals("")||jTextField2.getText().equals("")||jTextField3.getText().equals("")||jTextField4.getText().equals("")||jTextField5.getText().equals("")||jTextField6.getText().equals("")||jTextField7.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Vui lòng chọn đơn hàng muốn xoá");
-            }else{
-                String ID_Bill = jTextField1.getText();
+        if(jTable3.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(null, "Chọn đơn hàng muốn xoá");
+        }else{
+        int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn xoá đơn hàng này?","Select",JOptionPane.YES_NO_OPTION);
+        if(thongbao==0){
+            try {
                 String pId = jTextField4.getText();
-                String pName = jTextField5.getText();
-                String Species = jTextField7.getText();
-                String Price = jTextField6.getText();
-                String Name = jTextField3.getText();
-                String NumberPhone = jTextField2.getText();
-                int thongBao = JOptionPane.showConfirmDialog(null, "Bạn muốn xoá hoá đơn này?","Select",JOptionPane.YES_NO_OPTION);
-                if(thongBao==0){
-                    try {
-                        Connection con = ConnectionProvider.getConnection();
-                        Statement st = con.createStatement();
-                        st.executeUpdate("delete from Bill where ID_Bill ='"+ID_Bill+"'");
-                        st.executeUpdate("update Pet set Status = 1 where pId = '"+pId+"' ");
-                        setVisible(false);
-                        new billing1().setVisible(true);
-                    } catch (Exception e) {
-                    }
-                }
+                DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+                DefaultTableModel model1 = (DefaultTableModel)jTable2.getModel();
+                int removeIndex = jTable3.getSelectedRow();
+                model.removeRow(removeIndex);
+                model1.addRow(new Object[]{jTextField4.getText(),jTextField5.getText(),jTextField7.getText(),jTextField6.getText()});
+                Connection con = ConnectionProvider.getConnection();
+                Statement st = con.createStatement();
+                st.executeUpdate("update Pet set Status = 1 where pId = '"+pId+"' ");
+                st.executeUpdate("delete from Bill where pId='"+pId+"'");
+                JOptionPane.showMessageDialog(null, "Xoá thành công");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jTextField4.setText("");
+                jTextField5.setText("");
+                jTextField6.setText("");
+                jTextField7.setText("");
+                
+            } catch (Exception e) {
             }
+        }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(traTien == 0){
-            String ID_Bill = jTextField1.getText();
-            String pId = jTextField4.getText();
-            String pName = jTextField5.getText();
-            String Species = jTextField7.getText();
-            String Price = jTextField6.getText();
-            String Name = jTextField3.getText();
-            String NumberPhone = jTextField2.getText();
-            if(ID_Bill.equals("")|| pId.equals("")|| pName.equals("")|| Species.equals("")|| Price.equals("")|| Name.equals("")|| NumberPhone.equals("")){
-                JOptionPane.showMessageDialog(null, "Vui lòng chọn hoá đơn");
+            DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+            int index = jTable3.getSelectedRow();
+            if(index==-1){
+                JOptionPane.showMessageDialog(null, "Chọn hoá đơn thanh toán");
             }else{
-                int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn thanh toán hoá đơn này?","Select",JOptionPane.YES_NO_OPTION);
+            String ID_Bill = jTable3.getValueAt(index, 0).toString();
+            if(model.getRowCount()==0){
+                JOptionPane.showMessageDialog(null,"Chưa chọn hoá đơn");
+            }else{
+                
+                int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn thanh toán hoá đơn "+ID_Bill+"","Select",JOptionPane.YES_NO_OPTION);
                 if(thongbao == 0){
+                    jLabel29.setVisible(false);
+                    jButton9.setVisible(false);
                     jButton1.setEnabled(false);
                     jButton3.setEnabled(false);
                     jButton4.setEnabled(false);
@@ -690,24 +753,48 @@ public class billing1 extends javax.swing.JFrame {
                     traTien = 1;
                     JOptionPane.showMessageDialog(null, "Điền số tiền khách trả");
                     jComboBox2.setEnabled(false);
+                    bang3 = 0;
+                    jTextField4.setText("");
+                    jTextField5.setText("");
+                    jTextField7.setText("");
+                    try {
+                    Connection con = ConnectionProvider.getConnection();
+                    Statement st = con.createStatement();
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    if(rs.next()){
+                        jTextField6.setText(chuanHoa(rs.getString("tong")));
+                        
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-            }
-        }
+                }
+            }}}
         else if(traTien == 1){
+            DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+            int index = jTable3.getSelectedRow();
+            String ID_Bill = jTable3.getValueAt(index, 0).toString();
+            String pId = jTable3.getValueAt(index, 1).toString();
+            String pName = jTable3.getValueAt(index, 2).toString();
+            String Species = jTable3.getValueAt(index, 3).toString();
             jButton1.setEnabled(false);
-            String ID_Bill = jTextField1.getText();
-            String pId = jTextField4.getText();
-            String pName = jTextField5.getText();
-            String Species = jTextField7.getText();
-            String Price = jTextField6.getText();
-            String Name = jTextField3.getText();
-            String NumberPhone = jTextField2.getText();
             String Paid = jTextField8.getText();
             if(jTextField8.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Vui lòng điền số tiền khách trả");
             }else{
             long tienTra = Long.parseLong(Paid);
-            long giaTien = Long.parseLong(Price);
+            String Total = "";
+                try {
+                    Connection con = ConnectionProvider.getConnection();
+                    Statement st = con.createStatement();
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    if(rs.next()){
+                        Total = rs.getString("tong");
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            long giaTien = Long.valueOf(Total);
             String Retun = String.valueOf(tienTra-giaTien);
             if(tienTra<giaTien){
                 JOptionPane.showMessageDialog(null, "Tiền khách trả không đủ");
@@ -718,7 +805,9 @@ public class billing1 extends javax.swing.JFrame {
                     try {
                                 Connection con = ConnectionProvider.getConnection();
                                 Statement st = con.createStatement();
-                                st.executeUpdate("update Bill set Status = 0 ,  Paid = '"+Paid+"',Retun='"+Retun+"' where ID_Bill ='"+ID_Bill+"'");
+                                st.executeUpdate("update Bill set Status = 0 where ID_Bill ='"+ID_Bill+"'");
+                                st.executeUpdate("update DoneBill set Total = '"+Total+"',Paid = '"+Paid+"',Retun = '"+Retun+"' where ID_Bill = '"+ID_Bill+"' ");
+                                JOptionPane.showMessageDialog(null, "Thanh toán thành công hoá đơn "+ID_Bill);
                                 setVisible(false);
                                 new billing1().setVisible(true);
                             } catch (Exception e) {
@@ -749,61 +838,87 @@ public class billing1 extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        String ID_Bill = jTextField1.getText();
-        String pName = jTextField5.getText();
-        String Price = jTextField6.getText();
-        String Name = jTextField3.getText();
-        String NumberPhone = jTextField2.getText();
-        String Species = jTextField7.getText();
-        String path = "E:\\";
-        String paid = "";
-        String retun = "";
-        String date = "";
+        DefaultTableModel dtm = (DefaultTableModel)jTable3.getModel();
+        int index = jTable3.getSelectedRow();
+        if(index==-1){
+            JOptionPane.showMessageDialog(null, "Chọn hoá đơn muốn in");
+        }else{
+            String ID_Bill = dtm.getValueAt(index, 0).toString();
+            int thongBao = JOptionPane.showConfirmDialog(null, "Bạn muốn in hoá đơn "+ID_Bill+" ?","Select",JOptionPane.YES_NO_OPTION);
+            if(thongBao == 0){
+                com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
         try {
-            Connection con = ConnectionProvider.getConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select Name,pName from Bill where ID_Bill = '"+ID_Bill+"'");
-            Name = rs.getString("Name");
-            pName = rs.getString("pName");
-        } catch (Exception e) {
-        }
-        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
-        try {
+            String Name = "";
+            String NumberPhone = "";
+            String Email = "";
+            String Address = "";
+            String Total = "";
+            String Paid = "";
+            String Return = "";
+            String path = "E:\\";
             try {
                 Connection con = ConnectionProvider.getConnection();
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select ID_Bill,pId,pName,Species,Price,Date,Paid,Retun from Bill where ID_Bill = '"+ID_Bill+"'");
+                ResultSet rs = st.executeQuery("select a.name,a.numberphone,email,b.address from Bill a, Buyer b where ID_Bill = '"+ID_Bill+"' and b.numberphone = a.numberphone");
                 if(rs.next()){
-                    date = rs.getString("Date");
-                    paid = rs.getString("Paid");
-                    retun = rs.getString("Retun");
+                    Name = rs.getString("name");
+                    NumberPhone = rs.getString("numberphone");
+                    Email = rs.getString("Email");
+                    Address = rs.getString("Address");
                 }
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-            if(ID_Bill.equals("")||pName.equals("")||Price.equals("")||Name.equals("")||NumberPhone.equals("")||Species.equals("")){
-                JOptionPane.showMessageDialog(null, "Chọn hoá đơn");
-            }else{
-                int thongbao = JOptionPane.showConfirmDialog(null, "In hoá đơn này?","Select",JOptionPane.YES_NO_OPTION);
-                if(thongbao==0){
-                    PdfWriter.getInstance(doc,new FileOutputStream(path+ID_Bill+"-"+Name+".pdf"));
-                    doc.open();
-                    Paragraph paragraph1 = new Paragraph("                                                        Pet Management System\n                                                                                                     Contact Number: 19001506\n\n");
-                    doc.add(paragraph1);
-                    Paragraph paragraph2 = new Paragraph("Date & Time: "+date+ " " + jLabel14.getText()+"\nBuyer Details:\nName :"+Name+"\nPhone Number: "+NumberPhone+"\n\n");
-                    doc.add(paragraph2);
-                    Paragraph paragraph3 = new Paragraph("Pet Name: "+pName+"\n");
-                    doc.add(paragraph3);
-                    Paragraph paragraph4 = new Paragraph("Species: "+Species+"\n");
-                    doc.add(paragraph4);
-                    Paragraph paragraph5 = new Paragraph("Price: "+Price+"\nPaid Amount: "+paid+"\nReturn Amount: "+retun+"\n\nThanks you for Visiting!\nPMS");
-                    doc.add(paragraph5);
-                    JOptionPane.showMessageDialog(null, "Tạo hoá đơn thành công!");
+            try {
+                    Connection con = ConnectionProvider.getConnection();
+                    Statement st = con.createStatement();
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    if(rs.next()){
+                        Total = chuanHoa(rs.getString("tong"));
+                    }
+                    rs = st.executeQuery("select paid,retun from DoneBill where ID_Bill = '"+ID_Bill+"'");
+                    if(rs.next()){
+                        Paid = chuanHoa(rs.getString("Paid"));
+                        Return = chuanHoa(rs.getString("Retun"));
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            PdfWriter.getInstance(doc,new FileOutputStream(path+""+ID_Bill+"-"+Name+".pdf"));
+            doc.open();
+            Paragraph paragraph1 = new Paragraph("                                                        Pet Management System\n                                                                                                     Contact Number: 19001506\n\n");
+            doc.add(paragraph1);
+            Paragraph paragraph2 = new Paragraph("Date & Time: "+jLabel15.getText()+" "+jLabel14.getText()+"\nBuyer Details:\nName :"+Name+"\nPhone Number: "+NumberPhone+"\nEmail: "+Email+"\nAddress: "+Address+"\n\n");
+            doc.add(paragraph2);
+            PdfPTable tb1 = new PdfPTable(4);
+            tb1.addCell("pId");
+            tb1.addCell("Name");
+            tb1.addCell("Species");
+            tb1.addCell("Price");
+            for(int i = 0;i<jTable3.getRowCount();i++){
+                if(jTable3.getValueAt(i,0).toString().equals(ID_Bill)){
+                String n = jTable3.getValueAt(i, 2).toString();
+                String d = jTable3.getValueAt(i, 3).toString();
+                String s = jTable3.getValueAt(i, 4).toString();
+                String p = jTable3.getValueAt(i, 5).toString();
+                tb1.addCell(n);
+                tb1.addCell(d);
+                tb1.addCell(s);
+                tb1.addCell(chuanHoa(p));
                 }
             }
+            doc.add(tb1);
+            Paragraph paragraph3 = new Paragraph("\nTotal: "+Total+"\nPaid Amount: "+Paid+"\nReturn Amount: "+Return+"\n\nThanks you for Visiting!\nPMS");
+            doc.add(paragraph3);
+            JOptionPane.showMessageDialog(null, "Tạo hoá đơn thành công!");
+            setVisible(false);
+            new billing1().setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         doc.close();
+        }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -811,6 +926,29 @@ public class billing1 extends javax.swing.JFrame {
         setVisible(false);
         new revenue().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        int index = jTable3.getSelectedRow();
+        String ID_Bill = "";
+        if(index == -1){
+            JOptionPane.showMessageDialog(null, "Chọn hoá đơn muốn thêm");
+        }else{
+            ID_Bill = jTable3.getValueAt(index, 0).toString();
+            int thongBao = JOptionPane.showConfirmDialog(null, "Bạn muốn thêm đơn hàng cho hoá đơn "+ID_Bill+" ?","Select",JOptionPane.YES_NO_OPTION);
+            if(thongBao==0){
+                jButton2.setEnabled(false);
+                jButton3.setEnabled(false);
+                jTextField4.setText("");
+                jTextField5.setText("");
+                jTextField6.setText("");
+                jTextField7.setText("");
+                them = 1;
+                bang2 = 1;
+                bang3 = 0;
+            }
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -856,8 +994,10 @@ public class billing1 extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JTextField jID_Order;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -879,6 +1019,7 @@ public class billing1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

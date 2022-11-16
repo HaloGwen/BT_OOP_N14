@@ -40,7 +40,22 @@ public class newPet1 extends javax.swing.JFrame {
         jTextArea1.setEnabled(false);
         jComboBox1.setEnabled(false);
     }
-    
+    public String chuanHoa(String s){
+        String temp = "";
+        int dem = 0;
+        s = "a"+s;
+        for(int i = s.length()-1;i>=0;i--){
+            if(dem==3&&s.charAt(i)!='a'){
+                temp = "."+temp;
+                dem = 0;
+            }
+                dem++;
+            if(s.charAt(i)!='a'){
+                temp = s.charAt(i)+temp;
+            }
+        }
+        return temp;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,7 +388,6 @@ public class newPet1 extends javax.swing.JFrame {
         getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 10, -1, -1));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/all page background image.png"))); // NOI18N
-        jLabel27.setText("jLabel21");
         getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
@@ -455,12 +469,12 @@ public class newPet1 extends javax.swing.JFrame {
                 try {
                     Connection con = ConnectionProvider.getConnection();
                     Statement st = con.createStatement();
-                    st.executeUpdate("update Pet set pId = N'"+pId+"',pName='"+pName+"',Price='"+Price+"',Description=N'"+Description+"',Species='"+Species+"'where pId='"+pId+"'");
+                    st.executeUpdate("update Pet set pId = '"+pId+"',pName=N'"+pName+"',Price='"+Price+"',Description=N'"+Description+"',Species='"+Species+"'where pId='"+pId+"'");
                     JOptionPane.showMessageDialog(null, "Cập nhật thành công");
                     setVisible(false);
                     new newPet1().setVisible(true);
                 }catch (Exception e) {
-                    JOptionPane.showConfirmDialog(null, e);
+                    JOptionPane.showMessageDialog(null, e);
                 }
             }
         else{
@@ -481,7 +495,7 @@ public class newPet1 extends javax.swing.JFrame {
                     setVisible(false);
                     new newPet1().setVisible(true);
                 }catch (Exception e) {
-                    JOptionPane.showConfirmDialog(null, e);
+                    JOptionPane.showConfirmDialog(null,"Đã tồn tại thú cưng này");
                 }}
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -545,7 +559,7 @@ public class newPet1 extends javax.swing.JFrame {
                 jTextField1.setForeground(new Color(255,0,0));
                 jTextField2.setText(jTable1.getValueAt(row, 1).toString());
                 jTextField2.setForeground(new Color(0,0,0));
-                jTextField3.setText(jTable1.getValueAt(row, 2).toString());
+                jTextField3.setText(chuanHoa(jTable1.getValueAt(row, 2).toString()));      
                 jTextField3.setForeground(new Color(0,0,0));
                 jTextArea1.setText(jTable1.getValueAt(row, 3).toString());
                 jTextArea1.setForeground(new Color(0,0,0));
