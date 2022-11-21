@@ -181,11 +181,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Bill"/>
+        <Property name="text" type="java.lang.String" value="Order"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="515" y="452" width="-1" height="-1"/>
+          <AbsoluteConstraints x="500" y="460" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

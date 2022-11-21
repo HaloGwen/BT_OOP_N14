@@ -582,7 +582,7 @@ public class newPet1 extends javax.swing.JFrame {
                     try {
                         Connection con = ConnectionProvider.getConnection();
                         Statement st = con.createStatement();
-                        st.executeUpdate("delete from Pet where pId='"+pId+"'");
+                        st.executeUpdate("update pet set status = '0' where pId='"+pId+"'");
                         setVisible(false);
                         new newPet1().setVisible(true);
                     } catch (Exception e) {

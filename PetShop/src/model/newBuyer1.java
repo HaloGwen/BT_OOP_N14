@@ -373,7 +373,7 @@ public class newBuyer1 extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select *from buyer");
+            ResultSet rs = st.executeQuery("select name,numberphone,email,address,gender from buyer where status = '1'");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -461,7 +461,7 @@ public class newBuyer1 extends javax.swing.JFrame {
             try {
                 Connection con = ConnectionProvider.getConnection();
                 Statement st = con.createStatement();
-                st.executeUpdate("insert into buyer values(N'"+name+"',N'"+numberPhone+"',N'"+email+"',N'"+address+"',N'"+gender+"')");
+                st.executeUpdate("insert into buyer values(N'"+name+"',N'"+numberPhone+"',N'"+email+"',N'"+address+"',N'"+gender+"','1')");
                 JOptionPane.showMessageDialog(null,"Thêm thành công");
                 setVisible(false);
                 new newBuyer1().setVisible(true);
@@ -574,7 +574,7 @@ public class newBuyer1 extends javax.swing.JFrame {
                     try {
                         Connection con = ConnectionProvider.getConnection();
                         Statement st = con.createStatement();
-                        st.executeUpdate("delete from buyer where numberPhone='"+numberPhone+"'");
+                        st.executeUpdate("update buyer set status = '0' where numberPhone = '"+numberPhone+"'");
                         setVisible(false);
                         new newBuyer1().setVisible(true);
                     } catch (Exception e) {
@@ -656,10 +656,10 @@ public class newBuyer1 extends javax.swing.JFrame {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
             if(numberPhone.equals("Enter NumberPhone")|| numberPhone.equals("")){
-                ResultSet rs = st.executeQuery("select *from buyer");
+                ResultSet rs = st.executeQuery("select name,numberphone,email,address,gender from buyer where status = '1'");
                 jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             }else{
-                ResultSet rs = st.executeQuery("select *from buyer where numberPhone like'"+numberPhone+"%'");
+                ResultSet rs = st.executeQuery("select name,numberphone,email,address,gender from buyer where numberPhone like'"+numberPhone+"%' and status = '1'");
                 jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             }
             jTable1.setVisible(false);

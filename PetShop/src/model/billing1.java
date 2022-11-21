@@ -237,8 +237,8 @@ public class billing1 extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 126, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel5.setText("Bill");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 452, -1, -1));
+        jLabel5.setText("Order");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("ID_Bill");
@@ -467,7 +467,7 @@ public class billing1 extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select Name,NumberPhone from Buyer");
+            ResultSet rs = st.executeQuery("select Name,NumberPhone from Buyer where Status = 1");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -475,7 +475,7 @@ public class billing1 extends javax.swing.JFrame {
         try {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1 order by ID_Bill ASC");
+            ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Orderr where Status = 1 order by ID_Bill ASC");
             jTable3.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -569,11 +569,11 @@ public class billing1 extends javax.swing.JFrame {
             Connection con = ConnectionProvider.getConnection();
             Statement st = con.createStatement();
             if (status.equals("Unconfirmed")){
-                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 1 order by ID_Bill ASC");
+                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Orderr where Status = 1 order by ID_Bill ASC");
                 jTable3.setModel(DbUtils.resultSetToTableModel(rs));
                 jButton3.setEnabled(true);
             }else if (status.equals("Confirmed")){
-                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Bill where Status = 0 order by ID_Bill ASC");
+                ResultSet rs = st.executeQuery("select ID_Bill,ID_Order,pId,pName,Species,Price,Name,NumberPhone,Date from Orderr where Status = 0 order by ID_Bill ASC");
                 jTable3.setModel(DbUtils.resultSetToTableModel(rs));
                 jButton3.setEnabled(false);
                 jButton2.setEnabled(false);
@@ -595,7 +595,7 @@ public class billing1 extends javax.swing.JFrame {
                 try {
                         Connection con = ConnectionProvider.getConnection();
                         Statement st = con.createStatement();
-                        ResultSet rs = st.executeQuery("select max(ID_Bill) from DoneBill");
+                        ResultSet rs = st.executeQuery("select max(ID_Bill) from Bill");
                         if(rs.next()){  
                             int id = rs.getInt(1);
                             id = id+1;
@@ -639,11 +639,11 @@ public class billing1 extends javax.swing.JFrame {
                         if (thongbao1 == 0){
                             Connection con = ConnectionProvider.getConnection();
                             Statement st = con.createStatement();
-                            ResultSet rs = st.executeQuery("select ID_Bill as id from DoneBill where ID_Bill = '"+ID_Bill+"'");
+                            ResultSet rs = st.executeQuery("select ID_Bill as id from Bill where ID_Bill = '"+ID_Bill+"'");
                             if(!rs.next()){
-                                     st.executeUpdate("insert into DoneBill values('0','0','0','"+ID_Bill+"')");
+                                     st.executeUpdate("insert into Bill values('0','0','0','"+ID_Bill+"')");
                             }
-                            rs = st.executeQuery("select max(ID_Order) from Bill");
+                            rs = st.executeQuery("select max(ID_Order) from Orderr");
                             if(rs.next()){
                                 int ID_Order = rs.getInt(1);
                                 ID_Order = ID_Order+1;
@@ -652,7 +652,7 @@ public class billing1 extends javax.swing.JFrame {
                             }else{
                                 jID_Order.setText("1");
                             }
-                            st.executeUpdate("insert into Bill values('"+jID_Order.getText()+"','"+ID_Bill+"','"+pId+"',N'"+pName+"','"+Species+"','"+Price+"',N'"+Name+"','"+NumberPhone+"','"+dob+"','"+status+"')");
+                            st.executeUpdate("insert into Orderr values('"+jID_Order.getText()+"','"+ID_Bill+"','"+pId+"',N'"+pName+"','"+Species+"','"+Price+"',N'"+Name+"','"+NumberPhone+"','"+dob+"','"+status+"')");
                             st.executeUpdate("update Pet set Status = 0 where pId = '"+pId+"' ");
                             JOptionPane.showMessageDialog(null, "Thêm thành công");
                             DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
@@ -712,7 +712,7 @@ public class billing1 extends javax.swing.JFrame {
                 Connection con = ConnectionProvider.getConnection();
                 Statement st = con.createStatement();
                 st.executeUpdate("update Pet set Status = 1 where pId = '"+pId+"' ");
-                st.executeUpdate("delete from Bill where pId='"+pId+"'");
+                st.executeUpdate("delete from Orderr where pId='"+pId+"'");
                 JOptionPane.showMessageDialog(null, "Xoá thành công");
                 jTextField1.setText("");
                 jTextField2.setText("");
@@ -741,7 +741,7 @@ public class billing1 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Chưa chọn hoá đơn");
             }else{
                 
-                int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn thanh toán hoá đơn "+ID_Bill+"","Select",JOptionPane.YES_NO_OPTION);
+                int thongbao = JOptionPane.showConfirmDialog(null, "Bạn muốn thanh toán hoá đơn "+ID_Bill+" ?","Select",JOptionPane.YES_NO_OPTION);
                 if(thongbao == 0){
                     jLabel29.setVisible(false);
                     jButton9.setVisible(false);
@@ -760,7 +760,7 @@ public class billing1 extends javax.swing.JFrame {
                     try {
                     Connection con = ConnectionProvider.getConnection();
                     Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Orderr where ID_Bill = '"+ID_Bill+"' ");
                     if(rs.next()){
                         jTextField6.setText(chuanHoa(rs.getString("tong")));
                         
@@ -787,7 +787,7 @@ public class billing1 extends javax.swing.JFrame {
                 try {
                     Connection con = ConnectionProvider.getConnection();
                     Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Orderr where ID_Bill = '"+ID_Bill+"' ");
                     if(rs.next()){
                         Total = rs.getString("tong");
                     }
@@ -805,8 +805,8 @@ public class billing1 extends javax.swing.JFrame {
                     try {
                                 Connection con = ConnectionProvider.getConnection();
                                 Statement st = con.createStatement();
-                                st.executeUpdate("update Bill set Status = 0 where ID_Bill ='"+ID_Bill+"'");
-                                st.executeUpdate("update DoneBill set Total = '"+Total+"',Paid = '"+Paid+"',Retun = '"+Retun+"' where ID_Bill = '"+ID_Bill+"' ");
+                                st.executeUpdate("update Orderr set Status = 0 where ID_Bill ='"+ID_Bill+"'");
+                                st.executeUpdate("update Bill set Total = '"+Total+"',Paid = '"+Paid+"',Retun = '"+Retun+"' where ID_Bill = '"+ID_Bill+"' ");
                                 JOptionPane.showMessageDialog(null, "Thanh toán thành công hoá đơn "+ID_Bill);
                                 setVisible(false);
                                 new billing1().setVisible(true);
@@ -859,7 +859,7 @@ public class billing1 extends javax.swing.JFrame {
             try {
                 Connection con = ConnectionProvider.getConnection();
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("select a.name,a.numberphone,email,b.address from Bill a, Buyer b where ID_Bill = '"+ID_Bill+"' and b.numberphone = a.numberphone");
+                ResultSet rs = st.executeQuery("select a.name,a.numberphone,email,b.address from Orderr a, Buyer b where ID_Bill = '"+ID_Bill+"' and b.numberphone = a.numberphone");
                 if(rs.next()){
                     Name = rs.getString("name");
                     NumberPhone = rs.getString("numberphone");
@@ -872,11 +872,11 @@ public class billing1 extends javax.swing.JFrame {
             try {
                     Connection con = ConnectionProvider.getConnection();
                     Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery("select sum(price) as tong from Bill where ID_Bill = '"+ID_Bill+"' ");
+                    ResultSet rs = st.executeQuery("select sum(price) as tong from Orderr where ID_Bill = '"+ID_Bill+"' ");
                     if(rs.next()){
                         Total = chuanHoa(rs.getString("tong"));
                     }
-                    rs = st.executeQuery("select paid,retun from DoneBill where ID_Bill = '"+ID_Bill+"'");
+                    rs = st.executeQuery("select paid,retun from Bill where ID_Bill = '"+ID_Bill+"'");
                     if(rs.next()){
                         Paid = chuanHoa(rs.getString("Paid"));
                         Return = chuanHoa(rs.getString("Retun"));

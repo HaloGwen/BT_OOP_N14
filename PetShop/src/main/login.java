@@ -103,9 +103,9 @@ public class login extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("VNI-Truck", 1, 36)); // NOI18N
         jLabel7.setText("PET MANAGEMENT SYSTEM");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 520, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 520, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Downloads\\login background.jpg")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/login-background.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
