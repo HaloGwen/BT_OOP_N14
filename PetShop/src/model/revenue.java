@@ -179,9 +179,9 @@ public class revenue extends javax.swing.JFrame {
                     Statement st = con.createStatement();
                     ResultSet rs;
                     if(species.equals("All")){
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"'and status = 0");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '%/%/"+year+"'and status = 0");
                     }else{
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/%/"+year+"' and Species = '"+species+"'and status = 0 ");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '%/%/"+year+"' and Species = '"+species+"'and status = 0 ");
                     }
                     if(rs.next()){
                         String temp = rs.getString("tong");
@@ -201,9 +201,9 @@ public class revenue extends javax.swing.JFrame {
                 Statement st = con.createStatement();
                 ResultSet rs;
                     if(species.equals("All")){
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/"+month+"/"+year+"'");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '%/"+month+"/"+year+"'");
                     }else{
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '%/"+month+"/"+year+"' and Species = '"+species+"' ");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '%/"+month+"/"+year+"' and Species = '"+species+"' ");
                     }
                     if(rs.next()){
                         String temp = rs.getString("tong");
@@ -222,9 +222,9 @@ public class revenue extends javax.swing.JFrame {
                 Statement st = con.createStatement();
                 ResultSet rs;
                     if(species.equals("All")){
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '"+day+"/"+month+"/"+year+"'");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '"+day+"/"+month+"/"+year+"'");
                     }else{
-                        rs = st.executeQuery("select sum(price) as tong from Bill where Date like '"+day+"/"+month+"/"+year+"' and Species = '"+species+"' ");
+                        rs = st.executeQuery("select sum(price) as tong from Orderr where Date like '"+day+"/"+month+"/"+year+"' and Species = '"+species+"' ");
                     }
                     if(rs.next()){
                         String temp = rs.getString("tong");
