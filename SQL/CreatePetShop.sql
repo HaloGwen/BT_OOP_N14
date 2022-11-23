@@ -18,6 +18,13 @@ create table Pet(
 	Status int not null default '1'
 )
 
+create table Bill(
+	ID_Bill int not null primary key,
+	Total decimal(18,0) not null,
+	Paid decimal(18,0) not null,
+	Retun decimal(18,0) not null,
+)
+
 create table Orderr(
 	ID_Order int not null primary key,
 	ID_Bill int not null foreign key references Bill(ID_Bill),
@@ -29,11 +36,4 @@ create table Orderr(
 	NumberPhone varchar(50) not null foreign key references Buyer(NumberPhone),
 	Date varchar(50) not null,
 	Status int not null default '1'
-)
-
-create table Bill(
-	ID_Bill int not null primary key,
-	Total decimal(18,0) not null,
-	Paid decimal(18,0) not null,
-	Retun decimal(18,0) not null,
 )
